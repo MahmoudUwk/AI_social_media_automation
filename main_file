@@ -8,9 +8,10 @@ from browser_use import Agent
 from browser_use.browser.browser import Browser, BrowserConfig
 
 prompt_template = """
-You are a social media assistant.  Your task is to access the user's Facebook page (which is already logged in).
-Then, summarize the content of the first 5 posts you find.
+You are a social media assistant. Your task is to access the user's LinkedIn feed (which is already logged in).
+Then, explain the content of the first ten posts (non Ads) you find. In bullet points, provide one line about each post.
 """
+
 
 browser = Browser(
     config=BrowserConfig(
@@ -19,12 +20,11 @@ browser = Browser(
 )
 
 
-
+#gemini-2.0-flash-lite-preview-02-05  gemini-2.0-pro-exp-02-05 gemini-2.0-flash
 async def main():
     agent = Agent(
         task=prompt_template,
-        # llm=ChatOpenAI(model='gpt-4o'),  # Replace with Gemini
-        llm=ChatGoogleGenerativeAI(model="gemini-2.0-pro-exp-02-05", convert_system_message_to_human=True),  # Use Gemini
+        llm=ChatGoogleGenerativeAI(model="gemini-2.0-flash"),  # Use Gemini
         browser=browser,
     )
 
